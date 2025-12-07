@@ -6,7 +6,11 @@ tasks:
   zip:
     desc: create a zipped code distribution
     cmds:
-      - git diff --quiet --exit-code || echo "Commit your changes first!" && exit 1
+      - |
+        if ! git diff --quiet --exit-code ; then
+         echo "Commit your changes first!"
+         exit 1
+        fi
       - rm dist/service-manager.zip || true
       - uv pip freeze > requirements.txt
       - |
