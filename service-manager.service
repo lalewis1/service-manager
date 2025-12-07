@@ -16,7 +16,7 @@ ExecStart=/etc/service-manager/venv/bin/python \
   -m uvicorn \
   --host 0.0.0.0 \
   --port 8080 \
-  --root-path ${SM_ROOT} \
+  --root-path $SM_ROOT \
   service-manager.main:app
 
 SyslogIdentifier=service-manager
