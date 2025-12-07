@@ -1,0 +1,10 @@
+[project]
+name = "service-manager"
+version = "0.1.0"
+description = "VM Service manager interface"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.124.0",
+    "uvicorn>=0.38.0",
+]

@@ -1,0 +1,17 @@
+version: 3
+
+silent: true
+
+tasks:
+  zip:
+    desc: create a zipped code distribution
+    cmds:
+      - git diff --quiet --exit-code || "$(echo "Commit your changes first!" && exit 1)"
+      - rm dist/service-manager.zip
+      - uv pip freeze > requirements.txt
+      - |
+        git reflog show --max-count=1 | awk '{print $1}' | xargs -I {} echo "zipped from commit: {}, on $(date)" > stamp.txt
+      - tar -cf dist/service-manager.zip service-manager/ requirements.txt stamp.txt service-manager.service .env.example --verbose
+      - rm requirements.txt stamp.txt
+      - echo "created zip distribution under dist/"
+

@@ -1,0 +1,24 @@
+[Unit]
+Description=Service Manager FastAPI App
+After=network-online.target
+
+[Service]
+Restart=always
+WorkingDirectory=/etc/service-manager
+EnvironmentFile=/etc/service-manager/.env
+# Alternatively:
+# Environment=SM_ROOT="/subpath"
+# Environment=SM_SERVICES="a.service b.service"
+
+ExecStart=/etc/service-manager/venv/bin/python \
+  -m uvicorn \
+  --host 0.0.0.0 \
+  --port 8080 \
+  --root-path ${SM_ROOT} \
+  service-manager.main:app
+
+SyslogIdentifier=service-manager
+Type=simple
+
+[Install]
+WantedBy=default.target

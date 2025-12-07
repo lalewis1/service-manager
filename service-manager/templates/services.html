@@ -1,0 +1,39 @@
+{% for service in managed_services %}
+<div>
+  {{ service }}: <span id="{{ service }}"></span>
+  <button onclick="service_action('{{ service }}', 'stop')">stop</button>
+  <button onclick="service_action('{{ service }}', 'start')">start</button>
+  <button onclick="service_action('{{ service }}', 'restart')">restart</button>
+  <button onclick="service_action('{{ service }}', 'reload')">reload</button>
+  <a href="{{root_path}}/service/{{ service }}/logs" target="_blank">logs</a>
+</div>
+{% endfor %}
+<hr />
+<script lang="js">
+  async function service_action(service, action) {
+    const response = await fetch(`{{root_path}}/service/${service}/${action}`, {
+      method: "POST",
+    });
+    if (response.status === 202) {
+      window.alert(`${action} request succesfully submitted`);
+    } else {
+      window.alert("something went wrong, please try again later");
+    }
+  }
+
+  async function get_service_status(service) {
+    const span = document.getElementById(service);
+    const response = await fetch(`{{root_path}}/service/${service}/status`, {
+      method: "POST",
+    });
+    span.innerText = await response.text();
+    if (response.status === 200) {
+      span.style.color = "green";
+    } else {
+      span.style.color = "red";
+    }
+  }
+  {% for service in managed_services %}
+    get_service_status("{{ service }}");
+  {% endfor %}
+</script>
