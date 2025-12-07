@@ -8,7 +8,6 @@ WorkingDirectory=/etc/service-manager
 EnvironmentFile=/etc/service-manager/.env
 # Alternatively:
 # Environment=SM_ROOT="/subpath"
-# Environment=SM_PORT="8080"
 # Environment=SM_SERVICES="a.service b.service"
 
 # You will need to create the virtual environment and install 
@@ -16,7 +15,7 @@ EnvironmentFile=/etc/service-manager/.env
 ExecStart=/etc/service-manager/venv/bin/python \
   -m uvicorn \
   --host 0.0.0.0 \
-  --port ${SM_PORT} \
+  --port 8080 \
   --root-path ${SM_ROOT} \
   service-manager.main:app
 
