@@ -19,6 +19,7 @@ Service manager must run on the host as root. To deploy service manager:
 
 - bundle the application code and requirements into an archive with `task zip`
 - unzip the archive on the remote host under `/etc/service-manager/`
+- install the dependencies from `/etc/service-manager/requirements.txt`
 - provide env variables in `/etc/service-manager/.env`
 - copy `/etc/service-manager/service-manager.service` to `/etc/systemd/system/`
 - enable and start the service

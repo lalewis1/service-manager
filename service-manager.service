@@ -10,6 +10,8 @@ EnvironmentFile=/etc/service-manager/.env
 # Environment=SM_ROOT="/subpath"
 # Environment=SM_SERVICES="a.service b.service"
 
+# You will need to create the virtual environment and install 
+# the dependencies before this command will work.
 ExecStart=/etc/service-manager/venv/bin/python \
   -m uvicorn \
   --host 0.0.0.0 \
