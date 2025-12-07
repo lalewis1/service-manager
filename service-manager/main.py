@@ -62,7 +62,7 @@ async def start_service(service: str):
 
 @app.post("/service/{service}/reload")
 async def reload_service(service: str):
-    if service != "fuseki":
+    if service not in managed_services:
         return Response(status_code=404)
     cmd = f"systemctl reload {service}; systemctl restart {service}"
     subprocess.Popen(cmd, shell=True)
